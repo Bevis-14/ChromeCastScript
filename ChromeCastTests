@@ -1,0 +1,171 @@
+@Chromecast
+Feature: Checking core functionality of Chromecast works correctly (Android and Mobile Browser only as well as Desktop Browser)
+
+As a tester of SMP
+I want to check core functionality of Chromecast
+So i can ensure that it works as expected 
+Currently only looking at 
+
+
+
+Background
+Given I have a ChromeCast and device connected to the same network with the HTML player and CP plugin installed and Chromecast set to true and have chromecast queued playlist ready 
+When the COOKBOOK is loaded 
+When I click the CTA to begin playback 
+Then Press the Chromecast Icon
+Then Ensure HTTPS:// is in the URL 
+Then i need to have a link 
+
+
+
+@CheckCastButtonDesktop
+Scenario: Check basic chromecast functionality works as expected 
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting
+Then i can see the video being casted onto the screen 
+
+@CheckfullscreenmodeDesktop
+Scenario: Check the functionality of the full screen mode button, when pressed in the normal screen it should go to full screen, in full screen mode it should return to normal
+Given I have a ChromeCast and device connected to the same network with the HTML player and CP plugin installed and Chromecast set to true
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting
+When i press the full screen mode icon button 
+Then the screen should go to fullscreen mode 
+And when i exit fullscreen mode the page should return back to its original position 
+
+@castcontrolpositioning
+Scenario: Check that from when first connecting to chromecast the chromecast controls is placed in the top left of the player, avoiding overlapping with the continuous play bar 
+Given I have a ChromeCast and device connected to the same network with the HTML player and CP plug in installed and Chromecast set to true
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting
+Then the chromecast controls should be placed in the top left corner of the player and remain in that position
+
+@castbuttonisntunderlinedifoff
+Scenario: When casting if i turn off casting the icon button in the control bar shouldn't still be underlined which indicates it is connected
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting
+Then i can see the video being casted onto the screen 
+And i stop the cast
+Then the Chromecast icon button shouldn't still be underlined 
+
+@Checkqueuedplaylistpausingworks
+Scenario: When viewing a casted queued playlist if i pause on the second video the timer on the video continues increasing
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting
+And i can see the video being casted onto the screen 
+And i use the seek bar to get to the second video 
+Then i let the second video play for 30 seconds 
+Then Pause the video 
+And video timer should not be moving 
+
+@subtitledcontenttononsubtitled
+Scenario: When playing subtitled content then transitioning to non subtitled content on mobile 
+When i press the play CTA button on the player
+And i can see the video playback
+And i press the Chromecast icon button 
+And i can see the Chromecast connecting
+And i can see the video being casted onto the screen 
+When i press the subtitle button
+And subtitles appear on screen 
+Then I use the seekbar to load next non subtitled content 
+Then I should view content that has no subtitles or errors in the player 
+
+@Correctholdingimagedisplaying 
+Scenario: Check that on a queued playlist that the correct holding image is displayed on the browser player each video in the playlist will have a different holding image 
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting
+Then i can see the video being casted onto the screen 
+And the correct holding image should appear on the browser player 
+Then use the seekbar to force the next video to play 
+Then the holding image should be the correct one for the second video in queued playlist 
+
+@Holdingimagenotshowingcastingfromident
+Scenario: When casting from an ident the holding image should be a frame from the actual video and not a holding the holding image 
+Given I have a ChromeCast and device connected to the same network with the HTML player and CP plug in installed and Chromecast set to true
+When i click the play CTA button on the player
+When the ident is playing i press pause on the player
+Then i click the Chromecast icon button 
+Then the holding image should not be the one i selected 
+
+@Correctcastnameappearonscreen
+Scenario: Check that the name of the cast is the same name that is displayed on screen when connecting
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting 
+Then i can see the chromecast name should be the same as the chromecast 
+
+@Castingcontentandusingpip
+Scenario: Casting content and using PIP and fullscreen mode and checking this can be done without anything breaking 
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting
+Then i can see the video being casted onto the screen 
+Then i click the PIP icon button 
+And the PIP second window will appear on screen with a play button in the middle
+Then i press the play button on the PIP second window button 
+And the second PIP window will begin to play
+Then i click the full screen mode button 
+Then the PIP content will be playing in fullscreen whilst the casting video is on the second screen 
+
+@Stoppingcastincastqueuedplaylist
+Scenario: Stopping a cast on the second video in a queued playlist and seeing the timer on the video stop correctly 
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting
+Then i can see the video being casted onto the screen 
+Then i the seekbar to scroll across to the next video in the queued playlist 
+And i cancel the cast on only the second video in the queued playlist 
+Then i will see the video timer on the player going up even though the cast has been stopped 
+
+@transportbarislostafterfullscreen
+Scenario: On mobile when you exit full screen mode you lose access to the transport bar, so no access to the seekbar fullscreen mode etc
+When i press the play CTA on the video player 
+And i can see video playback 
+And i click the chromecast icon button  
+And i and i can see the chromecast connecting 
+And i can see the video being casted onto the second screen 
+And i press the full screen button on the video player on the mobile device 
+Then i press the full screen button again to return back to the normal video player size 
+Then i lose transport bar and it's lost and cannot be returned 
+
+@CastPIPandfullscreendisablesplaybutton
+Scenario: Checking you can cast PIP and use full screen mode at the same time without any issues 
+When i click the play CTA button on the player
+And i can see the video playback
+And i click the Chromecast icon button 
+And i can see the Chromecast connecting
+And i can see the video playing on the second casting screen 
+And i click the PIP icon button
+And the PIP window will open 
+And i click play on the PIP window it will start to play 
+And i click the full screen mode button 
+And i click the pause button 
+And the button changes to a play button 
+And i try to click the button again and nothing happens 
+And i click the full screen mode button again 
+And i press the play button on the control bar again 
+Then nothing happens again the button becomes in-active 
+
+ACTUAL
+
+
+
+
+
+
+
