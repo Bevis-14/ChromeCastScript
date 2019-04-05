@@ -30,8 +30,20 @@ And i have ChromeCast content with CP Plugin
 When the COOKBOOK is loaded 
 When I click the CTA to begin playback 
 And I can see the video playback
-Then Press the Chromecast Icon
-And i can see the Chromecast connecting
+Then Press Chromecast Icon
+And i can see Chromecast connecting
+
+@CheckBasicPlayerControls
+Scenario: A check for all the basic player functionality 
+When i see video casted onto the screen
+And i Press Pause button 
+Then video should pause 
+And i press the play buttton the player should play
+Then player should play again 
+And i press the full screen button 
+Then player should go into full screen view 
+And i seek to another position 
+Then video should shift to that position
 
 @CheckCastButtonDesktop
 Scenario: Check basic chromecast functionality works as expected 
@@ -71,7 +83,7 @@ Then the holding image should be the correct one for the second video in queued 
 Scenario: Check that the name of the Chromecast is the same name that is displayed on screen when connecting
 Then i can see the chromecast name should be the same as the chromecast 
 
-@CastingContentAndUsingPiP
+@CastingAndPiPContentPlayingSameTime
 Scenario: Casting content and using PIP and fullscreen mode and checking this can be done without anything breaking 
 Then i click the PIP icon button 
 And PIP second window appears press play on this window
@@ -86,6 +98,9 @@ Then i can see the video being casted onto the screen
 Then i the seekbar to scroll across to the next video in the queued playlist 
 And i cancel the cast on only the second video in the queued playlist 
 Then i will see the video timer on the player going up even though the cast has been stopped 
+
+Forces user to have to reload the page to view content again 
+
 
 @TransportBarIsLostAfterFullscreen
 Scenario: On mobile when you exit full screen mode you lose access to the transport bar, so no access to the seekbar fullscreen mode etc
@@ -103,11 +118,8 @@ And i click the PIP icon button
 And the PIP window will open 
 And i click play on the PIP window it will start to play 
 And i click the full screen mode button 
-And i click the pause button 
-And the button changes to a play button 
-And i try to click the button again and nothing happens 
-And i click the full screen mode button again 
-And i press the play button on the control bar again 
+And i click the pause button in full screen mode
+And i try to press the same button again
 Then nothing happens again the button becomes in-active 
 
 ACTUAL
